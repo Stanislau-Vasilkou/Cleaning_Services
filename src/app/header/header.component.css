@@ -1,0 +1,21 @@
+.container-fluid {
+  height: 60px;
+  background-color: green;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+/*li {*/
+/*  display: inline-block;*/
+/*  margin-left: 15px;*/
+/*}*/
+
+/*li::after {*/
+/*  content: '|';*/
+/*  display: inline-block;*/
+/*  position: relative;*/
+/*  left: 10px;*/
+/*}*/

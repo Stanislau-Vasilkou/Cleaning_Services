@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center">
+    <form class="col-sm-10 col-xl-3" [formGroup]="loginForm">
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Login" formControlName="login">
+        <mat-hint>Hint</mat-hint>
+        <mat-error>is required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Password" formControlName="password">
+        <mat-hint>Hint</mat-hint>
+        <mat-error>is required</mat-error>
+      </mat-form-field>
+        <button mat-raised-button color="primary" (click)="sendData()">Register</button>
+        <a routerLink="/clientRegistration">Register as new client</a>
+        <br>
+        <a routerLink="/companyRegistration">Register as new company</a>
+    </form>
+  </div>
+</div>
