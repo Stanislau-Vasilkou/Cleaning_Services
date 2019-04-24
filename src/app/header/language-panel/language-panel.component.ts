@@ -4,7 +4,8 @@ import {TranslateService} from '@ngx-translate/core';
 @Component({
   selector: 'app-language-panel',
   templateUrl: './language-panel.component.html',
-  styleUrls: ['./language-panel.component.css']
+  styleUrls: ['./language-panel.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LanguagePanelComponent implements OnInit {
 

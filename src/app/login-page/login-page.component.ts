@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../services/client.service';
+import {ErrorHandlerService} from "../services/error-handler.service";
 
 interface User {
   name: string;
@@ -23,7 +24,8 @@ export class LoginPageComponent implements OnInit {
   user: User;
 
 
-  constructor(private client: ClientService) {
+  constructor(private client: ClientService,
+              private errorHandler: ErrorHandlerService) {
   }
 
   ngOnInit() {
@@ -39,7 +41,15 @@ export class LoginPageComponent implements OnInit {
         updateOn: 'blur'
       })
     });
+  }
 
+  catchError(control: string) {
+    console.log(this.errorHandler.getErrMsg(control, this.loginForm));
+    return this.errorHandler.getErrMsg(control, this.loginForm);
+  }
+
+  isValid(control) {
+    return this.errorHandler.isControlInvalid(control, this.loginForm);
   }
 
   sendData() {

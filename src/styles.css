@@ -5,3 +5,20 @@ html, body {
   padding: 0;
   height: 100%;
 }
+
+body {
+  background-image: url("../src/assets/img/bckgr/okna.jpg");
+  background-size: cover;
+}
+
+mat-form-field, button {
+  width: 90%;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 10px;
+}

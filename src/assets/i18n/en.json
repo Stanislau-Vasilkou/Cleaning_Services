@@ -1,1 +1,3 @@
-{"header":{"login":"LOG IN","logout":"logout","changeLang":"choose language","name":"Cleaning Services"}}
+{"clientInfo":{}, "forms":{"login": "login"},"companyInfo":{},"header":{"changeLang":"choose language","login":"LOGIN",
+  "logout":"logout",
+  "name":"Cleaning Services"},"login":{},"validatorErrors":{"required":"please, fill this field","email":"wrong email address"}}
