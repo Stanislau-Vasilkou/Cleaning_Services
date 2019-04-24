@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../services/client.service';
-import {ErrorHandlerService} from "../services/error-handler.service";
+import {ErrorHandlerService} from '../services/error-handler.service';
 
 interface User {
   name: string;

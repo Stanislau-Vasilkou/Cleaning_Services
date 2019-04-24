@@ -21,16 +21,6 @@ exports.getByID = (req, res) => {
   });
 };
 
-exports.getByName = (req, res) => {
-  Client.findById({_id: ObjectID(req.params.id)}, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.sendStatus(500);
-    }
-    res.send(docs);
-  });
-};
-
 exports.update = (req, res) => {
   const updatedData = req.body;
   Client.updateOne({_id: ObjectID(req.params.id)}, updatedData, (err) => {

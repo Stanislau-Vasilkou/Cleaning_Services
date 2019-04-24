@@ -1,11 +1,8 @@
 .mat-raised-button {
-  min-width: 10px !important;
-  width: 10px;
   padding: 0;
   font-size: 0.8em;
-  background-color: green;
 }
 
 .button-wrapper {
-  width: 20px;
+  display: flex;
 }

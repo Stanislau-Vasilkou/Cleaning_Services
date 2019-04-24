@@ -7,4 +7,12 @@
 .navigation {
   display: flex;
   align-items: center;
+  position: relative;
+  top: 50px;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.row {
+  height: 100%;
 }

@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClientService } from '../services/client.service';
+import { Client } from '../interfaces/client';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-client-registration-form',
   templateUrl: './client-registration-form.component.html',
   styleUrls: ['./client-registration-form.component.css']
 })
+
 export class ClientRegistrationFormComponent implements OnInit {
   clientRegisterForm: FormGroup;
   attributes: string[];
-  constructor() { }
+  client: Client;
+
+  constructor(private clientService: ClientService,
+              private router: Router) {
+    console.log(this.client);
+  }
 
   ngOnInit() {
     this.clientRegisterForm = new FormGroup({
@@ -19,11 +28,11 @@ export class ClientRegistrationFormComponent implements OnInit {
         updateOn: 'blur',
       }),
       email: new FormControl(null, {
-        validators: Validators.required,
+        validators: [Validators.required, Validators.email],
         asyncValidators: [],
         updateOn: 'blur',
       }),
-      prone: new FormControl(null, {
+      phone: new FormControl(null, {
         validators: Validators.required,
         asyncValidators: [],
         updateOn: 'blur',
@@ -40,6 +49,25 @@ export class ClientRegistrationFormComponent implements OnInit {
       }),
     });
     this.attributes = Object.keys(this.clientRegisterForm.controls);
-    console.log(this.attributes);
+  }
+
+  getClient() {
+    this.client = new Client();
+    for (const props in this.client) {
+      if (this.clientRegisterForm.controls[props] !== undefined ) {
+        this.client[props] = this.clientRegisterForm.controls[props].value;
+      }
+    }
+  }
+
+  addClient() {
+    this.getClient();
+    console.log(this.client);
+    this.clientService.addClient(this.client).subscribe(() => console.log('Client was sended'));
+    this.goTo();
+  }
+
+  goTo() {
+    this.router.navigateByUrl('clientEdit');
   }
 }

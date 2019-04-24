@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClientService } from '../services/client.service';
+import { Client } from '../interfaces/client';
 
 @Component({
   selector: 'app-client-profile-editor',
@@ -9,17 +11,22 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class ClientProfileEditorComponent implements OnInit {
   clientEditorForm: FormGroup;
   attributes: string[];
+  id: string;
+  client: Client;
 
-  constructor() { }
+  constructor(private clientService: ClientService) {
+    this.id = '5cc0413ef5257b2440742e22';
+  }
 
   ngOnInit() {
+    this.getClient();
     this.clientEditorForm = new FormGroup({
       photo: new FormControl(null, {
         validators: Validators.required,
         asyncValidators: [],
         updateOn: 'blur'
       }),
-      name: new FormControl(null, {
+      login: new FormControl(null, {
         validators: Validators.required,
         asyncValidators: [],
         updateOn: 'blur'
@@ -61,5 +68,19 @@ export class ClientProfileEditorComponent implements OnInit {
       }),
     });
     this.attributes = Object.keys(this.clientEditorForm.controls);
+  }
+  getClient() {
+    this.clientService.getUserInfo(this.id).subscribe( (client: Client) => {
+      this.client = client;
+      this.setValues();
+    });
+  }
+
+  setValues() {
+    for (const props in this.client) {
+      if (this.clientEditorForm.controls[props] !== undefined) {
+        this.clientEditorForm.controls[props].setValue(this.client[props]);
+      }
+    }
   }
 }
