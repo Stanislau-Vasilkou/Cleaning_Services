@@ -1,10 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const modelControllers = require('./controllers/collections.js');
-const jwt = require('jsonwebtoken');
-const passport = require('passport');
-const passportJWT = require('passport-jwt');
 const Client = require('./models/client');
+const passport = require('passport');
 
 const app = express();
 const url = 'mongodb://localhost:27017/CleaningServices';
@@ -27,6 +25,16 @@ mongoose.connect(url, { useNewUrlParser: true }, (err) => {
   app.listen(port, () =>
   console.log(`Server was started on port ${port}`));
 });
+mongoose.connection.on('error', error => console.log(error) );
+mongoose.Promise = global.Promise;
+
+require('./auth/auth');
+
+const routes = require('./routes/routes');
+const secureRoute = require('./routes/secure-route');
+
+app.use('/', routes);
+app.use('/user', passport.authenticate('jwt', { session : false }), secureRoute );
 
 app.get('/clients', modelControllers.getAll);
 app.get('/companies', modelControllers.getAll);
