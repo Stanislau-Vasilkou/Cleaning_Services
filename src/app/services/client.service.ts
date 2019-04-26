@@ -22,11 +22,19 @@ export class ClientService {
   }
 
   addClient(client: Client) {
-    return this.http.post('http://localhost:3000/clients', client, httpOptions);
+    return this.http.post('http://localhost:3000/signup', client, httpOptions);
+  }
+
+  authClient(client: Client) {
+    return this.http.post('http://localhost:3000/login', client, httpOptions);
   }
 
   getUserInfo(login: string) {
     console.log(login);
     return this.http.get(`http://localhost:3000/clients/${login}`);
+  }
+
+  getSecureInfo() {
+    return this.http.get(`http://localhost:3000/user/profile`);
   }
 }

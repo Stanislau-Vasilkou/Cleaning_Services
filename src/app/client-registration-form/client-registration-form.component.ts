@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../services/client.service';
 import { Client } from '../interfaces/client';
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-client-registration-form',
@@ -22,7 +22,7 @@ export class ClientRegistrationFormComponent implements OnInit {
 
   ngOnInit() {
     this.clientRegisterForm = new FormGroup({
-      login: new FormControl(null, {
+      name: new FormControl(null, {
         validators: Validators.required,
         asyncValidators: [],
         updateOn: 'blur',
@@ -54,7 +54,7 @@ export class ClientRegistrationFormComponent implements OnInit {
   getClient() {
     this.client = new Client();
     for (const props in this.client) {
-      if (this.clientRegisterForm.controls[props] !== undefined ) {
+      if (this.clientRegisterForm.controls[props] !== undefined || props !== 'passwordConfirmation') {
         this.client[props] = this.clientRegisterForm.controls[props].value;
       }
     }
@@ -64,7 +64,7 @@ export class ClientRegistrationFormComponent implements OnInit {
     this.getClient();
     console.log(this.client);
     this.clientService.addClient(this.client).subscribe(() => console.log('Client was sended'));
-    this.goTo();
+    // this.goTo();
   }
 
   goTo() {

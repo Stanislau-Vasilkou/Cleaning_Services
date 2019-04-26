@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -23,6 +23,7 @@ import { ModalWindowComponent } from './modal-window/modal-window.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { ClientProfileEditorComponent } from './client-profile-editor/client-profile-editor.component';
 import { CompanyProfileEditorComponent } from './company-profile-editor/company-profile-editor.component';
+import {Interceptor} from "./interceptor.service";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -63,7 +64,13 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [TranslateService],
+  providers: [
+    TranslateService,
+    {provide: HTTP_INTERCEPTORS,
+    useClass: Interceptor,
+    multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

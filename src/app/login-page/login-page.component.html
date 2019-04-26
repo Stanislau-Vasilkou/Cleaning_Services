@@ -1,8 +1,8 @@
 <form [formGroup]="loginForm">
   <mat-form-field>
-    <input matInput placeholder="Login" formControlName="login">
-    <mat-hint>{{ 'login' | translate }}</mat-hint>
-    <mat-error *ngIf="isValid('login')">{{ catchError('login') | translate }}</mat-error>
+    <input matInput placeholder="Email" formControlName="email">
+    <mat-hint>{{ 'email' | translate }}</mat-hint>
+    <mat-error *ngIf="isValid('email')">{{ catchError('email') | translate }}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input matInput placeholder="Password" formControlName="password">
@@ -10,4 +10,5 @@
     <mat-error *ngIf="isValid('password')">{{ catchError('password') | translate }}</mat-error>
   </mat-form-field>
   <button mat-raised-button (click)="sendData()">{{'forms.login' | translate}}</button>
+  <button mat-raised-button (click)="getInfo()">Test</button>
 </form>
