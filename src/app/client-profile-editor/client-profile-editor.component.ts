@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../services/client.service';
-import { Client } from '../interfaces/client';
+import { Client } from '../models/client';
 
 @Component({
   selector: 'app-client-profile-editor',
@@ -70,7 +70,7 @@ export class ClientProfileEditorComponent implements OnInit {
     this.attributes = Object.keys(this.clientEditorForm.controls);
   }
   getClient() {
-    this.clientService.getUserInfo(this.id).subscribe( (client: Client) => {
+    this.clientService.getByName(this.id).subscribe( (client: Client) => {
       this.client = client;
       this.setValues();
     });

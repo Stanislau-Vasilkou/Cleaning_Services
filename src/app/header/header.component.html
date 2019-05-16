@@ -1,13 +1,13 @@
 <div class="container-fluid">
-  <div class="row justify-content-between">
-    <div class="col align-items-center col-6 col-sm-8">{{'header.name' | translate}}</div>
-    <div class="col align-items-center col-3 col-sm-2">
-      <app-language-panel></app-language-panel>
+  <div class="row justify-content-around align-items-center">
+      <div class="col-6 col-sm-8">{{'header.name' | translate}}</div>
+      <div class="col-3 col-sm-2">
+        <app-language-panel></app-language-panel>
+      </div>
+      <div class="col-3 col-sm-2">
+        <app-logo-info-panel></app-logo-info-panel>
+      </div>
     </div>
-    <div class="col-3 col-sm-2">
-      <app-logo-info-panel></app-logo-info-panel>
-    </div>
-  </div>
   <div class="row navigation">
     <ul>
       <li><a routerLink="login">login</a></li>

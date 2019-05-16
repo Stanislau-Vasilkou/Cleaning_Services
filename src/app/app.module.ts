@@ -23,7 +23,9 @@ import { ModalWindowComponent } from './modal-window/modal-window.component';
 import { CompanyInfoComponent } from './company-info/company-info.component';
 import { ClientProfileEditorComponent } from './client-profile-editor/client-profile-editor.component';
 import { CompanyProfileEditorComponent } from './company-profile-editor/company-profile-editor.component';
-import {Interceptor} from "./interceptor.service";
+import {Interceptor} from './interceptor.service';
+import { HomepageComponent } from './homepage/homepage.component';
+import { PasswordToggleComponent } from './login-page/password-toggle/password-toggle.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,7 +48,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModalWindowComponent,
     CompanyInfoComponent,
     ClientProfileEditorComponent,
-    CompanyProfileEditorComponent
+    CompanyProfileEditorComponent,
+    HomepageComponent,
+    PasswordToggleComponent
   ],
   imports: [
     BrowserModule,

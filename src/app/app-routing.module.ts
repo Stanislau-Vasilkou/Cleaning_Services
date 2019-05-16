@@ -13,8 +13,10 @@ import {CompanyInfoComponent} from './company-info/company-info.component';
 import {CompanyProfileEditorComponent} from './company-profile-editor/company-profile-editor.component';
 import {CompaniesListComponent} from './companies-list/companies-list.component';
 import {ClientProfileEditorComponent} from './client-profile-editor/client-profile-editor.component';
+import {HomepageComponent} from './homepage/homepage.component';
 
 const appRoutes: Routes = [
+  { path: '', component: HomepageComponent },
   { path: 'home', component: AppComponent },
   { path: 'login', component : LoginPageComponent },
   { path: 'clientEdit', component : ClientProfileEditorComponent },

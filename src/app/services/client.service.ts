@@ -1,40 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Client } from '../interfaces/client';
-
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json',
-    'Authorization': 'my-auth-token'
-  })
-}
+import { HttpClient } from '@angular/common/http';
+import { Client } from '../models/client';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ClientService {
+  path = 'http://localhost:3000/';
 
   constructor(private http: HttpClient) { }
 
-  sendData(user: {}) {
-    return this.http.post('http://localhost:3000/clients', user, httpOptions);
+  register(client: Client) {
+    return this.http.post(`${this.path}signup`, client);
   }
 
-  addClient(client: Client) {
-    return this.http.post('http://localhost:3000/signup', client, httpOptions);
+  login(client: Client) {
+    return this.http.post(`${this.path}login`, client);
   }
 
-  authClient(client: Client) {
-    return this.http.post('http://localhost:3000/login', client, httpOptions);
-  }
-
-  getUserInfo(login: string) {
-    console.log(login);
-    return this.http.get(`http://localhost:3000/clients/${login}`);
-  }
-
-  getSecureInfo() {
-    return this.http.get(`http://localhost:3000/user/profile`);
+  getByName(name: string) {
+    return this.http.get(`${this.path}clients/${name}`);
   }
 }

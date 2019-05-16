@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../services/client.service';
 import {ErrorHandlerService} from '../services/error-handler.service';
-import {HttpRequest} from "@angular/common/http";
+import {HttpRequest} from '@angular/common/http';
+import {Router} from '@angular/router';
+import {stringify} from "querystring";
 
 interface Client {
   email: string;
@@ -24,21 +26,22 @@ export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
   client: Client;
   storage = window.localStorage;
-
+  type = 'password';
 
   constructor(private clientService: ClientService,
-              private errorHandler: ErrorHandlerService) {
+              private errorHandler: ErrorHandlerService,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
       email: new FormControl(null, {
-        validators: Validators.required,
+        validators: [Validators.required, Validators.email],
         asyncValidators: [],
         updateOn: 'blur',
       }),
       password: new FormControl(null, {
-        validators: Validators.required,
+        validators: [Validators.required, Validators.minLength(8)],
         asyncValidators: [],
         updateOn: 'blur'
       })
@@ -46,7 +49,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   catchError(control: string) {
-    console.log(this.errorHandler.getErrMsg(control, this.loginForm));
     return this.errorHandler.getErrMsg(control, this.loginForm);
   }
 
@@ -58,13 +60,13 @@ export class LoginPageComponent implements OnInit {
     this.client = new Client();
     this.client.email = this.loginForm.controls.email.value;
     this.client.password = this.loginForm.controls.password.value;
-    console.log(this.client);
-    this.clientService.authClient(this.client).subscribe((res: HttpRequest<object>) => {
-      this.storage.setItem('token', res.token);
+    this.clientService.login(this.client).subscribe((res: HttpRequest<object>) => {
+      this.storage.setItem('token', res['token']);
+      this.router.navigateByUrl('activeOrders');
     });
   }
 
-  getInfo() {
-    this.clientService.getSecureInfo().subscribe((res) => console.log(res));
+  setPasswordType(value: string) {
+    this.type = value;
   }
 }

@@ -2,8 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const modelControllers = require('./controllers/collections.js');
 const bodyParser = require('body-parser');
-const Client = require('./models/client');
 const passport = require('passport');
+const cors = require('cors');
+const delay = require('express-delay');
+
 
 const app = express();
 const url = 'mongodb://localhost:27017/CleaningServices';
@@ -22,16 +24,16 @@ mongoose.Promise = global.Promise;
 
 require('./auth/auth');
 
+app.use(delay(1000, 3000));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  next();
-
-});
+app.use(cors());
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization');
+//   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//   next();
+// });
 
 const routes = require('./routes/routes');
 const secureRoute = require('./routes/secure-route');

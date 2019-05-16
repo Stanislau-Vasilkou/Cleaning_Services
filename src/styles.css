@@ -7,7 +7,8 @@ html, body {
 }
 
 body {
-  background-image: url("../src/assets/img/bckgr/okna.jpg");
+  /*background-image: url("../src/assets/img/bckgr/okna.jpg");*/
+  background-color: #55C8FF;
   background-size: cover;
 }
 
@@ -21,4 +22,10 @@ form {
   flex-direction: column;
   align-items: center;
   padding: 30px 10px;
+}
+
+app-password-toggle {
+  position: absolute;
+  right: 2px;
+  cursor: pointer;
 }

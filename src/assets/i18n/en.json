@@ -1,3 +1,1 @@
-{"clientInfo":{}, "forms":{"login": "login"},"companyInfo":{},"header":{"changeLang":"choose language","login":"LOGIN",
-  "logout":"logout",
-  "name":"Cleaning Services"},"login":{},"validatorErrors":{"required":"please, fill this field","email":"wrong email address"}}
+{"clientInfo":{},"companyInfo":{},"forms":{"login":"login","name":"name","phone":"phone","password":"password","passwordConfirmation":"password confirmation","email":"email"},"header":{"changeLang":"choose language","login":"LOGIN","logout":"logout","name":"Cleaning Services"},"validatorErrors":{"email":"wrong email address or email cotain invalid symbols","required":"please, fill this field","invalidPassword":"incorrect current password","minlength":"password must be longer than 8 symbols"}}

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../services/client.service';
-import { Client } from '../interfaces/client';
-import { Router } from "@angular/router";
+import { Client } from '../models/client';
+import { Router } from '@angular/router';
+import { ErrorHandlerService } from '../services/error-handler.service';
 
 @Component({
   selector: 'app-client-registration-form',
@@ -16,9 +17,8 @@ export class ClientRegistrationFormComponent implements OnInit {
   client: Client;
 
   constructor(private clientService: ClientService,
-              private router: Router) {
-    console.log(this.client);
-  }
+              private errorHandler: ErrorHandlerService,
+              private router: Router) { }
 
   ngOnInit() {
     this.clientRegisterForm = new FormGroup({
@@ -38,17 +38,25 @@ export class ClientRegistrationFormComponent implements OnInit {
         updateOn: 'blur',
       }),
       password: new FormControl(null, {
-        validators: Validators.required,
+        validators: [Validators.required, Validators.minLength(8)],
         asyncValidators: [],
         updateOn: 'blur',
       }),
       passwordConfirmation: new FormControl(null, {
-        validators: Validators.required,
+        validators: [Validators.required, Validators.minLength(8)],
         asyncValidators: [],
         updateOn: 'blur',
       }),
     });
     this.attributes = Object.keys(this.clientRegisterForm.controls);
+  }
+
+  catchError(control: string) {
+    return this.errorHandler.getErrMsg(control, this.clientRegisterForm);
+  }
+
+  isValid(control) {
+    return this.errorHandler.isControlInvalid(control, this.clientRegisterForm);
   }
 
   getClient() {
@@ -63,7 +71,7 @@ export class ClientRegistrationFormComponent implements OnInit {
   addClient() {
     this.getClient();
     console.log(this.client);
-    this.clientService.addClient(this.client).subscribe(() => console.log('Client was sended'));
+    this.clientService.register(this.client).subscribe(() => console.log('Client was sended'));
     // this.goTo();
   }
 
