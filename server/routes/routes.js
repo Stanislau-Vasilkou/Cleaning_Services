@@ -23,13 +23,15 @@ router.post('/login', async (req, res, next) => {
     }
     req.login((client), { session : false }, async (error) => {
       if ( error ) return next(error)
-      const body = { _id : client._id, email : client.email };
+      const body = { _id : client._id};
       const token = jwt.sign({ client : body }, 'top_secret');
-      return res.json( {token} );
+      return res.json( {token, name: client.name} );
     });     } catch (error) {
     return next(error);
   }
   })(req, res, next);
 });
+
+
 
 module.exports = router;

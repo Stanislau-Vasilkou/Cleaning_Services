@@ -2,14 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ClientService} from '../services/client.service';
 import {ErrorHandlerService} from '../services/error-handler.service';
-import {HttpRequest} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {stringify} from "querystring";
-
-interface Client {
-  email: string;
-  password: string;
-}
 
 class Client {
   email: string;
@@ -24,9 +17,7 @@ class Client {
 
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
-  client: Client;
-  storage = window.localStorage;
-  type = 'password';
+  type: string = 'password';
 
   constructor(private clientService: ClientService,
               private errorHandler: ErrorHandlerService,
@@ -56,12 +47,16 @@ export class LoginPageComponent implements OnInit {
     return this.errorHandler.isControlInvalid(control, this.loginForm);
   }
 
+  getClient() {
+    const client = new Client();
+    client.email = this.loginForm.controls.email.value;
+    client.password = this.loginForm.controls.password.value;
+    return client;
+  }
+
   sendData() {
-    this.client = new Client();
-    this.client.email = this.loginForm.controls.email.value;
-    this.client.password = this.loginForm.controls.password.value;
-    this.clientService.login(this.client).subscribe((res: HttpRequest<object>) => {
-      this.storage.setItem('token', res['token']);
+    this.clientService.login(this.getClient()).subscribe((res: Response) => {
+      this.clientService.setToken(res);
       this.router.navigateByUrl('activeOrders');
     });
   }

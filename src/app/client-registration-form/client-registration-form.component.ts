@@ -4,6 +4,7 @@ import { ClientService } from '../services/client.service';
 import { Client } from '../models/client';
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from '../services/error-handler.service';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-client-registration-form',
@@ -14,11 +15,12 @@ import { ErrorHandlerService } from '../services/error-handler.service';
 export class ClientRegistrationFormComponent implements OnInit {
   clientRegisterForm: FormGroup;
   attributes: string[];
-  client: Client;
+  isLoading = false;
 
   constructor(private clientService: ClientService,
               private errorHandler: ErrorHandlerService,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.clientRegisterForm = new FormGroup({
@@ -60,22 +62,20 @@ export class ClientRegistrationFormComponent implements OnInit {
   }
 
   getClient() {
-    this.client = new Client();
-    for (const props in this.client) {
+    const client = new Client();
+    for (const props in client) {
       if (this.clientRegisterForm.controls[props] !== undefined || props !== 'passwordConfirmation') {
-        this.client[props] = this.clientRegisterForm.controls[props].value;
+        client[props] = this.clientRegisterForm.controls[props].value;
       }
     }
+    return client;
   }
 
-  addClient() {
-    this.getClient();
-    console.log(this.client);
-    this.clientService.register(this.client).subscribe(() => console.log('Client was sended'));
-    // this.goTo();
-  }
-
-  goTo() {
-    this.router.navigateByUrl('clientEdit');
+  registerClient() {
+    this.isLoading = true;
+    this.clientService.register(this.getClient())
+      .pipe(
+        finalize(() => this.isLoading = false))
+      .subscribe(() => this.router.navigateByUrl(''));
   }
 }

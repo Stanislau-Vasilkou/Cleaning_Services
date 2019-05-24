@@ -1,14 +1,18 @@
-<form [formGroup]="loginForm">
-  <mat-form-field>
-    <input matInput placeholder="{{forms.email | translate }}" formControlName="email">
-    <mat-hint>{{ 'forms.email' | translate }}</mat-hint>
-    <mat-error *ngIf="isValid('email')">{{ catchError('email') | translate }}</mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <input [type]="type" matInput placeholder="{{forms.password | translate }}" formControlName="password" #password>
-    <mat-hint>{{ 'forms.password' | translate }}</mat-hint>
-    <mat-error *ngIf="isValid('password')">{{ catchError('password') | translate }}</mat-error>
-    <app-password-toggle *ngIf="password.value" (togglePasswordType)="setPasswordType($event)"></app-password-toggle>
-  </mat-form-field>
-  <button [disabled]="loginForm.invalid" mat-raised-button (click)="sendData()">{{'forms.login' | translate}}</button>
-</form>
+<div class="popup-shadow"></div>
+<div class="form-wrapper">
+  <div class="title">LOGIN</div>
+  <form class="login-form" [formGroup]="loginForm">
+    <mat-form-field>
+      <input matInput placeholder="{{ 'forms.email' | translate }}" formControlName="email">
+      <mat-error *ngIf="isValid('email')">{{ catchError('email') | translate }}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input [type]="type" matInput placeholder="{{ 'forms.password' | translate }}" formControlName="password" #password>
+      <mat-error *ngIf="isValid('password')">{{ catchError('password') | translate }}</mat-error>
+      <app-password-toggle *ngIf="password.value" (togglePasswordType)="setPasswordType($event)"></app-password-toggle>
+    </mat-form-field>
+    <button [disabled]="loginForm.invalid" mat-raised-button (click)="sendData()">{{'forms.login' | translate}}</button>
+  </form>
+</div>
+
+

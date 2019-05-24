@@ -8,8 +8,12 @@ import { Client } from '../models/client';
 
 export class ClientService {
   path = 'http://localhost:3000/';
+  storage = window.localStorage;
+  client: Client;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.client = new Client();
+  }
 
   register(client: Client) {
     return this.http.post(`${this.path}signup`, client);
@@ -21,5 +25,22 @@ export class ClientService {
 
   getByName(name: string) {
     return this.http.get(`${this.path}clients/${name}`);
+  }
+
+  setToken(response: Response) {
+    if (response.hasOwnProperty('token')) {
+      this.storage.setItem('token', response['token']);
+      this.storage.setItem('name', response['name'])
+    }
+  }
+
+  removeToken() {
+    this.storage.removeItem('token');
+  }
+
+  getUserData(response: Response) {
+    if (response.hasOwnProperty('name')) {
+      this.client.name = name;
+    }
   }
 }
