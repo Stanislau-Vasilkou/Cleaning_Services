@@ -11,7 +11,7 @@ const ClientSchema = new Schema({
     type: String,
   },
   password: {
-    required: true,
+    // required: true,
     type: String,
   },
   phone: {
@@ -22,12 +22,19 @@ const ClientSchema = new Schema({
     default: "client",
     type: String,
   },
+  googleId: {
+    type: String
+  },
+  facebookId: {
+    type: String
+  }
 }, {versionKey: false});
 
 ClientSchema.pre('save', async function(next) {
-  const client = this;
-  const hash = await bcrypt.hash(this.password, 10);
-  this.password = hash;
+  if (this.password) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+  }
   next();
 });
 

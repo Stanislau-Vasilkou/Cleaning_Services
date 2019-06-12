@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ClientService} from '../services/client.service';
-import {ErrorHandlerService} from '../services/error-handler.service';
+import {ClientService} from '../../services/client.service';
+import {ErrorHandlerService} from '../../services/error-handler.service';
 import {Router} from '@angular/router';
+import { passwordVadator } from '../../customValidators/passwordValidator';
 
 class Client {
   email: string;
@@ -28,13 +29,11 @@ export class LoginPageComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl(null, {
         validators: [Validators.required, Validators.email],
-        asyncValidators: [],
-        updateOn: 'blur',
+        asyncValidators: []
       }),
       password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(8)],
-        asyncValidators: [],
-        updateOn: 'blur'
+        validators: [Validators.required, Validators.minLength(8), passwordVadator()],
+        asyncValidators: []
       })
     });
   }

@@ -4,7 +4,10 @@ const modelControllers = require('./controllers/collections.js');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');
+const session = require('express-session');
 const delay = require('express-delay');
+const googleSetup = require('./auth/google');
+const facebookSetup = require('./auth/facebook');
 
 
 const app = express();
@@ -25,9 +28,17 @@ mongoose.Promise = global.Promise;
 require('./auth/auth');
 
 app.use(delay(1000, 3000));
+app.use(session({ secret: "cats" }));
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.json());
 app.use(cors());
+app.use(express.static(__dirname));
+
+app.get('/', function(req, res) {
+  res.sendFile(__dirname + '/index.html');
+});
 // app.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', '*');
 //   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization');

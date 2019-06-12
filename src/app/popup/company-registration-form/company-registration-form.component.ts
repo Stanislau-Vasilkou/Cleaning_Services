@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 
 @Component({
   selector: 'app-company-registration-form',
@@ -9,7 +10,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class CompanyRegistrationFormComponent implements OnInit {
   companyRegisterForm: FormGroup;
   attributes: string[];
-  constructor() { }
+  constructor(private errorHandler: ErrorHandlerService) { }
 
   ngOnInit() {
     this.companyRegisterForm = new FormGroup({
@@ -57,4 +58,15 @@ export class CompanyRegistrationFormComponent implements OnInit {
     this.attributes = Object.keys(this.companyRegisterForm.controls);
   }
 
+  catchError(control: string) {
+    return this.errorHandler.getErrMsg(control, this.companyRegisterForm);
+  }
+
+  isValid(control) {
+    return this.errorHandler.isControlInvalid(control, this.companyRegisterForm);
+  }
+
+  onFileUploaded(event) {
+    console.log(event.target.files[0]);
+  }
 }

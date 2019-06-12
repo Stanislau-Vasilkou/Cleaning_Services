@@ -1,0 +1,39 @@
+<div class="title">Registration</div>
+<form [formGroup]="companyRegisterForm">
+    <input type="file" (change)="onFileUploaded($event)">
+  <mat-form-field>
+    <input matInput placeholder="{{ 'forms.name' | translate }}" formControlName="name">
+    <mat-hint>{{ 'forms.name' | translate }}</mat-hint>
+    <mat-error *ngIf="isValid('name')">{{ catchError('name') | translate }}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="{{ 'forms.address' | translate }}" formControlName="address">
+    <mat-hint>{{ 'forms.address' | translate }}</mat-hint>
+    <mat-error *ngIf="isValid('address')">{{ catchError('address') | translate }}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+  <input matInput placeholder="{{ 'forms.servicesTypes' | translate }}" formControlName="servicesTypes">
+  <mat-hint>{{ 'forms.servicesTypes' | translate }}</mat-hint>
+  <mat-error *ngIf="isValid('servicesTypes')">{{ catchError('servicesTypes') | translate }}</mat-error>
+</mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="{{ 'forms.prices' | translate }}" formControlName="prices">
+    <mat-hint>{{ 'forms.prices' | translate }}</mat-hint>
+    <mat-error *ngIf="isValid('prices')">{{ catchError('prices') | translate }}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="{{ 'forms.password' | translate }}" formControlName="password">
+    <mat-hint>{{ 'forms.password' | translate }}</mat-hint>
+    <mat-error *ngIf="isValid('password')">{{ catchError('password') | translate }}</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="{{ 'forms.passwordConfirmation' | translate }}"
+           formControlName="passwordConfirmation">
+    <mat-hint>{{ 'forms.passwordConfirmation' | translate }}</mat-hint>
+    <mat-error *ngIf="isValid('passwordConfirmation')">{{ catchError('passwordConfirmation') | translate }}</mat-error>
+  </mat-form-field>
+  <button mat-raised-button (click)="registerClient()">{{'forms.register' |
+    translate}}
+  </button>
+  <app-spinner *ngIf="isLoading"></app-spinner>
+</form>

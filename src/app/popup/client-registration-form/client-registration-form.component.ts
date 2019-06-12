@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ClientService } from '../services/client.service';
-import { Client } from '../models/client';
+import { ClientService } from '../../services/client.service';
+import { Client } from '../../models/client';
 import { Router } from '@angular/router';
-import { ErrorHandlerService } from '../services/error-handler.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
 import {finalize} from 'rxjs/operators';
 
 @Component({

@@ -1,0 +1,9 @@
+.title {
+  padding-top: 10px;
+  text-align: center;
+  height: 45px;
+  background-color: #55c7fe;
+  color: #ffffff;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}

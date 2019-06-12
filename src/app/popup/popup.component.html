@@ -1,0 +1,21 @@
+<div class="popup-shadow" (click)="closeWindow()"></div>
+<div class="form-wrapper" [ngSwitch]="form">
+  <app-login-page *ngSwitchCase="'login'"></app-login-page>
+  <app-client-registration-form *ngSwitchCase="'clientReg'"></app-client-registration-form>
+  <app-company-registration-form *ngSwitchCase="'companyReg'"></app-company-registration-form>
+  <div class="container">
+    <div class="row justify-content-between links-wrapper">
+      <span class="toggle">Forgot your password?</span>
+      <mat-button-toggle-group #group="matButtonToggleGroup">
+        <mat-button-toggle (click)="form = 'clientReg'">{{'client'}}</mat-button-toggle>
+        <mat-button-toggle (click)="form = 'companyReg'">{{'company'}}</mat-button-toggle>
+      </mat-button-toggle-group>
+      <span class="toggle">{{form}}</span>
+    </div>
+    <div class="row justify-content-center butt-wrapper">
+      <button mat-raised-button class="auth-butt google"><a href="http://localhost:3000/auth/google">GOOGLE</a></button>
+      <button mat-raised-button class="auth-butt facebook"><a href="http://localhost:3000/auth/facebook">FACEBOOK</a>
+      </button>
+    </div>
+  </div>
+</div>

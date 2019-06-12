@@ -19,4 +19,8 @@ export class StorageService {
   removeKey(key: string) {
     this.storage.removeItem(key);
   }
+
+  hasValue(key: string) {
+    return !!this.storage.getItem(key);
+  }
 }

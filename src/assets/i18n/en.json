@@ -9,10 +9,16 @@
     "passwordConfirmation": "password confirmation",
     "email": "email"
   },
+  "popup": {
+    "login": "login",
+    "reg": "register",
+    "pass": "password",
+    "email": "please, input your mail or phone number"
+  },
   "header": {
     "logoutPanel": {
       "logout": "Logout",
-      "changePswrd": "Change password",
+      "changePass": "Change password",
       "edit": "Edit"
     },
     "langPanel": {

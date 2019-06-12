@@ -19,6 +19,10 @@ export class ClientService {
     return this.http.post(`${this.path}signup`, client);
   }
 
+  logVIAGoogle() {
+    return this.http.get(`${this.path}auth/google`);
+  }
+
   login(client: Client) {
     return this.http.post(`${this.path}login`, client);
   }
@@ -30,7 +34,7 @@ export class ClientService {
   setToken(response: Response) {
     if (response.hasOwnProperty('token')) {
       this.storage.setItem('token', response['token']);
-      this.storage.setItem('name', response['name'])
+      this.storage.setItem('name', response['name']);
     }
   }
 
