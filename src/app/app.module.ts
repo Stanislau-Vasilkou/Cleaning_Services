@@ -29,6 +29,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { LogoutPanelComponent } from './header/logout-panel/logout-panel.component';
 import { StorageService } from './services/storage.service';
 import { PopupComponent } from './popup/popup.component';
+import { ClientService } from './services/client.service';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -76,6 +77,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     TranslateService,
     StorageService,
+    ClientService,
     {provide: HTTP_INTERCEPTORS,
     useClass: Interceptor,
     multi: true

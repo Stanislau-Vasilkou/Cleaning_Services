@@ -1,8 +1,20 @@
 const Client = require('../models/client');
 const ObjectID = require('mongodb').ObjectID;
+const postService = require('../message_service/messanger');
 
 exports.getAll = (req, res) => {
   Client.find((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.sendStatus(500);
+    }
+    postService.postService();
+    res.send(docs);
+  });
+};
+
+exports.getByID = (req, res) => {
+  Client.findById({_id: ObjectID(req.params.id)}, (err, docs) => {
     if (err) {
       console.log(err);
       return res.sendStatus(500);
@@ -11,8 +23,10 @@ exports.getAll = (req, res) => {
   });
 };
 
-exports.getByID = (req, res) => {
-  Client.findById({_id: ObjectID(req.params.id)}, (err, docs) => {
+exports.getByValue = (req, res) => {
+  const value = req.params.value;
+  console.log(value);
+  Client.find({$or: [{email: value}, {phone: value}]}, (err, docs) => {
     if (err) {
       console.log(err);
       return res.sendStatus(500);

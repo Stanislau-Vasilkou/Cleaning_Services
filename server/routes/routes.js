@@ -23,29 +23,32 @@ router.get('/auth/google',
 
 router.get('/auth/google/redirect',
   passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-      res.redirect('http://localhost:4200');
+    const id = req.user._id;
+    res.redirect(`http://localhost:4200/home/${id}`);
     });
 
 router.get('/auth/facebook',
-  passport.authenticate('facebook', { scope: 'email' }));
+  passport.authenticate('facebook', { scope : ['email'] }));
 
 router.get('/auth/facebook/redirect',
   passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-    res.redirect('http://localhost:4200');
+    const id = req.user._id;
+    res.redirect(`http://localhost:4200/home/${id}`);
   });
 
 router.post('/login', async (req, res, next) => {
   passport.authenticate('login', async (err, client, info) => {
     try {
+      console.log(client);
       if (err || !client) {
         const error = new Error('An Error occured');
         return next(error);
       }
       req.login((client), {session: false}, async (error) => {
         if (error) return next(error);
-        const body = {_id: client._id};
+        const body = {_id: client.id};
         const token = jwt.sign({client: body}, 'top_secret');
-        return res.json({token, name: client.name});
+        return res.json({token, id: client.id});
       });
     } catch (error) {
       return next(error);

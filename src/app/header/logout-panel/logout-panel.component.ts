@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../services/storage.service';
 import { Router } from '@angular/router';
+import { Client } from '../../models/client';
+import { ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-logout-panel',
@@ -8,12 +10,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./logout-panel.component.css']
 })
 export class LogoutPanelComponent implements OnInit {
-  name: string;
+  id: string;
+  currentUser: Client;
+
   constructor(private storage: StorageService,
-              private router: Router ) { }
+              private router: Router,
+              private clientService: ClientService) {
+  }
 
   ngOnInit() {
-    this.name = this.storage.getValue('name');
+    this.clientService.getUserData(this.id);
+    this.currentUser = this.clientService.currentUser;
   }
 
   goto(url: string) {
@@ -21,7 +28,7 @@ export class LogoutPanelComponent implements OnInit {
   }
 
   logout() {
-    this.storage.removeKey('name');
+    this.storage.removeKey('id');
     this.storage.removeKey('token');
     this.goto('');
   }

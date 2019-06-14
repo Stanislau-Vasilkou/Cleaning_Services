@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from '../services/client.service';
 import { Client } from '../models/client';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-client-profile-editor',
@@ -14,8 +15,9 @@ export class ClientProfileEditorComponent implements OnInit {
   id: string;
   client: Client;
 
-  constructor(private clientService: ClientService) {
-    this.id = '5cc0413ef5257b2440742e22';
+  constructor(private clientService: ClientService,
+              private storage: StorageService) {
+    this.id = this.storage.getValue('id');
   }
 
   ngOnInit() {
@@ -26,7 +28,7 @@ export class ClientProfileEditorComponent implements OnInit {
         asyncValidators: [],
         updateOn: 'blur'
       }),
-      login: new FormControl(null, {
+      name: new FormControl(null, {
         validators: Validators.required,
         asyncValidators: [],
         updateOn: 'blur'
@@ -70,7 +72,7 @@ export class ClientProfileEditorComponent implements OnInit {
     this.attributes = Object.keys(this.clientEditorForm.controls);
   }
   getClient() {
-    this.clientService.getByName(this.id).subscribe( (client: Client) => {
+    this.clientService.getByID(this.id).subscribe( (client: Client) => {
       this.client = client;
       this.setValues();
     });

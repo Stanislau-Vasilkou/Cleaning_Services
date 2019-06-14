@@ -22,8 +22,4 @@ export class PopupComponent implements OnInit {
     const parentRoute = this.router.url.replace(/\(popup:\w*\)/, '');
     this.router.navigateByUrl(parentRoute);
   }
-
-  logGoogle() {
-    this.clientService.logVIAGoogle().subscribe((req) => console.log(req));
-  }
 }

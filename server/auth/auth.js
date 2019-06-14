@@ -22,7 +22,8 @@ passport.use('login', new LocalStrategy({
   passwordField : 'password'
 }, async (email, password, done) => {
   try {
-    const client = await ClientModel.findOne({ email: email });
+    const client = await ClientModel.findOne({$or: [{email: email}, {phone: email}]});
+    console.log('email: ' + email);
     if ( !client) {
       return done(null, false, { message : 'User not found'});
     }

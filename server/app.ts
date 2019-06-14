@@ -9,7 +9,6 @@ const delay = require('express-delay');
 const googleSetup = require('./auth/google');
 const facebookSetup = require('./auth/facebook');
 
-
 const app = express();
 const url = 'mongodb://localhost:27017/CleaningServices';
 const port = 3000;
@@ -27,7 +26,7 @@ mongoose.Promise = global.Promise;
 
 require('./auth/auth');
 
-app.use(delay(1000, 3000));
+app.use(delay(10));
 app.use(session({ secret: "cats" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
@@ -61,6 +60,7 @@ app.get('/clients', modelControllers.getAll);
 app.get('/companies', modelControllers.getAll);
 
 app.get('/clients/:id', modelControllers.getByID);
+app.get('/clients/get/:value', modelControllers.getByValue);
 app.get('/companies/:id', modelControllers.getByID);
 
 app.post('/clients', modelControllers.add);

@@ -1,8 +1,8 @@
 <div class="title">LOGIN</div>
 <form class="login-form" [formGroup]="loginForm">
   <mat-form-field>
-    <input matInput placeholder="{{ 'forms.email' | translate }}" formControlName="email">
-    <mat-error *ngIf="isValid('email')">{{ catchError('email') | translate }}</mat-error>
+    <input matInput placeholder="{{ 'forms.emailOrPhone' | translate }}" formControlName="emailOrPhone">
+    <mat-error *ngIf="isValid('emailOrPhone')">{{ catchError('emailOrPhone') | translate }}</mat-error>
   </mat-form-field>
   <mat-form-field>
     <input [type]="type" matInput placeholder="{{ 'forms.password' | translate }}" formControlName="password" #password>

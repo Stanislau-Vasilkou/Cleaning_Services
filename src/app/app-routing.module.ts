@@ -17,8 +17,9 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { PopupComponent } from './popup/popup.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomepageComponent },
-  { path: 'home', component: AppComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomepageComponent },
+  { path: 'home/:id', component: HomepageComponent },
   { path: 'popup', component: PopupComponent, outlet: 'popup' },
   { path: 'login', component : LoginPageComponent},
   { path: 'clientEdit', component : ClientProfileEditorComponent },

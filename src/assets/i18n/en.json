@@ -7,7 +7,9 @@
     "phone": "phone",
     "password": "password",
     "passwordConfirmation": "password confirmation",
-    "email": "email"
+    "email": "email",
+    "register": "register",
+    "emailOrPhone": "input your email or phone number"
   },
   "popup": {
     "login": "login",
@@ -34,6 +36,7 @@
     "email": "wrong email address or contain invalid symbols",
     "required": "please, fill this field",
     "invalidPassword": "incorrect current password",
-    "minlength": "password must be longer than 8 symbols"
+    "minlength": "password must be longer than 8 symbols",
+    "existLogin": "this email or phone number is already exist"
   }
 }

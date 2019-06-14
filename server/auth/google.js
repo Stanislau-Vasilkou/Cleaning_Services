@@ -18,19 +18,20 @@ passport.use(
       clientSecret: 'jm9_PiplaTSLUZYJACvgbDt_',
       callbackURL: "/auth/google/redirect"
     }, (accessToken, refreshToken, profile, done) => {
-      ClientModel.findOne({googleId: profile.id}).then((currentClient) => {
-        if (currentClient) {
-          console.log('this user is already exist');
-          done(null, currentClient);
-        } else {
-          new ClientModel({
-            googleId: profile.id,
-            name: profile.displayName,
-            email: profile.emails[0].value
-          }).save().then((newClient) => {
-            done(null, newClient);
-          });
-        }
-      });
+    ClientModel.findOne({googleId: profile.id}).then((currentClient) => {
+      if (currentClient) {
+        console.log('this user is already exist');
+        done(null, currentClient);
+      } else {
+        new ClientModel({
+          googleId: profile.id,
+          name: profile.name.givenName,
+          email: profile.emails[0].value,
+          photo: profile.photos[0].value
+        }).save().then((newClient) => {
+          done(null, newClient);
+        });
+      }
+    });
     }
   ));

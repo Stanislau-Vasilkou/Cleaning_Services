@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ClientService} from '../../services/client.service';
-import {ErrorHandlerService} from '../../services/error-handler.service';
-import {Router} from '@angular/router';
-import { passwordVadator } from '../../customValidators/passwordValidator';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClientService } from '../../services/client.service';
+import { ErrorHandlerService } from '../../services/error-handler.service';
+import { Router } from '@angular/router';
+import { passwordValidator } from '../../customValidators/passwordValidator';
+import {LoginAsyncValidator} from "../../customValidators/loginAsyncValidator";
 
 class Client {
   email: string;
@@ -18,7 +19,7 @@ class Client {
 
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
-  type: string = 'password';
+  type = 'password';
 
   constructor(private clientService: ClientService,
               private errorHandler: ErrorHandlerService,
@@ -27,12 +28,13 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      email: new FormControl(null, {
-        validators: [Validators.required, Validators.email],
-        asyncValidators: []
+      emailOrPhone: new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [],
+        updateOn: 'blur'
       }),
       password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(8), passwordVadator()],
+        validators: [Validators.required, Validators.minLength(8), passwordValidator()],
         asyncValidators: []
       })
     });
@@ -48,14 +50,16 @@ export class LoginPageComponent implements OnInit {
 
   getClient() {
     const client = new Client();
-    client.email = this.loginForm.controls.email.value;
+    client.email = this.loginForm.controls.emailOrPhone.value;
     client.password = this.loginForm.controls.password.value;
+    console.log(client);
     return client;
   }
 
   sendData() {
     this.clientService.login(this.getClient()).subscribe((res: Response) => {
       this.clientService.setToken(res);
+      this.clientService.getUserData(res['id']);
       this.router.navigateByUrl('activeOrders');
     });
   }

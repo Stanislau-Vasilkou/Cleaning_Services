@@ -5,6 +5,8 @@ import { Client } from '../../models/client';
 import { Router } from '@angular/router';
 import { ErrorHandlerService } from '../../services/error-handler.service';
 import {finalize} from 'rxjs/operators';
+import {LoginAsyncValidator} from "../../customValidators/loginAsyncValidator";
+import {passwordValidator} from "../../customValidators/passwordValidator";
 
 @Component({
   selector: 'app-client-registration-form',
@@ -19,7 +21,8 @@ export class ClientRegistrationFormComponent implements OnInit {
 
   constructor(private clientService: ClientService,
               private errorHandler: ErrorHandlerService,
-              private router: Router) {
+              private router: Router,
+              private asyncValidator: LoginAsyncValidator) {
   }
 
   ngOnInit() {
@@ -31,16 +34,16 @@ export class ClientRegistrationFormComponent implements OnInit {
       }),
       email: new FormControl(null, {
         validators: [Validators.required, Validators.email],
-        asyncValidators: [],
+        asyncValidators: [this.asyncValidator.validate.bind(this.asyncValidator)],
         updateOn: 'blur',
       }),
       phone: new FormControl(null, {
         validators: Validators.required,
-        asyncValidators: [],
+        asyncValidators: [this.asyncValidator.validate.bind(this.asyncValidator)],
         updateOn: 'blur',
       }),
       password: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(8)],
+        validators: [Validators.required, Validators.minLength(8), passwordValidator()],
         asyncValidators: [],
         updateOn: 'blur',
       }),
@@ -64,10 +67,11 @@ export class ClientRegistrationFormComponent implements OnInit {
   getClient() {
     const client = new Client();
     for (const props in client) {
-      if (this.clientRegisterForm.controls[props] !== undefined || props !== 'passwordConfirmation') {
+      if (this.clientRegisterForm.controls[props] !== undefined && props !== 'passwordConfirmation') {
         client[props] = this.clientRegisterForm.controls[props].value;
       }
     }
+    console.log(client);
     return client;
   }
 

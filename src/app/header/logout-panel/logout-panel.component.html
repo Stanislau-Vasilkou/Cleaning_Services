@@ -1,14 +1,17 @@
 <div class="info-section">
-  <div class="client-name d-none d-md-block">{{name}}</div>
+  <div class="client-name d-none d-md-block">{{currentUser.name}}</div>
   <button [matMenuTriggerFor]="menu" class="navbutt d-none d-md-block">
-    <img src="http://lorempixel.com/150/150/people" alt="">
+    <img [src]="currentUser.photo || 'assets/img/logo-user-png.png'" alt="image">
   </button>
   <button [matMenuTriggerFor]="menu" class="menu-butt d-block d-sm-none">
     <i class="fas fa-bars"></i>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="goto('clientEdit')">{{ 'header.logoutPanel.edit' | translate }}</button>
-    <button mat-menu-item (click)="goto('changePassword')">{{ 'header.logoutPanel.changePass' | translate }}</button>
+    <button mat-menu-item *ngIf="currentUser.role === 'company'" (click)="goto('companyEdit')">{{
+      'header.logoutPanel.edit' |
+      translate }}</button>
+    <button mat-menu-item *ngIf="currentUser.role === 'client'" (click)="goto('clientEdit')">{{ 'header.logoutPanel.edit' |
+      translate }}</button>
     <button mat-menu-item (click)="logout()">{{ 'header.logoutPanel.logout' | translate }}</button>
   </mat-menu>
 </div>

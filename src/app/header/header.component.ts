@@ -7,13 +7,13 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, DoCheck {
-  name: string;
+  id: string;
   constructor( private storage: StorageService ) { }
 
   ngOnInit() {
   }
 
   ngDoCheck() {
-    this.name = this.storage.getValue('name');
+    this.id = this.storage.getValue('id');
   }
 }

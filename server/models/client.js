@@ -16,7 +16,7 @@ const ClientSchema = new Schema({
   },
   phone: {
     type: String,
-    // unique: true,
+    unique: true,
   },
   role: {
     default: "client",
@@ -26,6 +26,9 @@ const ClientSchema = new Schema({
     type: String
   },
   facebookId: {
+    type: String
+  },
+  photo: {
     type: String
   }
 }, {versionKey: false});

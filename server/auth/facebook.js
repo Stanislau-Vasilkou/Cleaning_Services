@@ -16,7 +16,8 @@ passport.use(
   new FacebookStrategy({
       clientID: '408125416705830',
       clientSecret: '96ab46d06f3bc040a63e46d97def3024',
-      callbackURL: "/auth/facebook/redirect"
+      callbackURL: "/auth/facebook/redirect",
+      profileFields: ['id', 'displayName', 'picture', 'email']
     }, (accessToken, refreshToken, profile, done) => {
       ClientModel.findOne({facebookId: profile.id}).then((currentClient) => {
         if (currentClient) {
@@ -25,8 +26,9 @@ passport.use(
         } else {
           new ClientModel({
             facebookId: profile.id,
-            name: profile.displayName,
-            email: profile.email
+            name: profile.displayName.split(' ')[0],
+            email: profile.emails[0].value,
+            photo: profile.photos[0].value
           }).save().then((newClient) => {
             done(null, newClient);
           });

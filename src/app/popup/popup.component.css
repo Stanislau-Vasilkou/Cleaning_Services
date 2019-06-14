@@ -42,3 +42,11 @@
   background-color: #6582bb;
   margin-bottom: 30px;
 }
+
+a {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
