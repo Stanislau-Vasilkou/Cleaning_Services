@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const modelControllers = require('./controllers/collections.js');
+const modelControllers = require('./controllers/controllers.js');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const cors = require('cors');

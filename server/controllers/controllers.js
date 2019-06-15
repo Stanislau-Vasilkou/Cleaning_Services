@@ -1,6 +1,6 @@
 const Client = require('../models/client');
 const ObjectID = require('mongodb').ObjectID;
-const postService = require('../message_service/messanger');
+const postService = require('./messanger');
 
 exports.getAll = (req, res) => {
   Client.find((err, docs) => {

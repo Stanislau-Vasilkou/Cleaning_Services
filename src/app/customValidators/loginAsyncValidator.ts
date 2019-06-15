@@ -14,7 +14,7 @@ export class LoginAsyncValidator implements AsyncValidator {
 
   validate(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.clientService.getByPhoneOrEmail(control.value).pipe(
-      map((result: Array) => {
+      map((result: Array<string>) => {
         if (result.length) {
           return {existLogin: true};
         } else {
@@ -26,7 +26,7 @@ export class LoginAsyncValidator implements AsyncValidator {
 
   check(control: AbstractControl): Observable<ValidationErrors | null> {
     return this.clientService.getByPhoneOrEmail(control.value).pipe(
-      map((result: Array<String>) => {
+      map((result: Array<string>) => {
         if (result.length) {
           return { existLogin: true };
         } else {
